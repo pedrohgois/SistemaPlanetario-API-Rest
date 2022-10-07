@@ -10,49 +10,49 @@ using SistemaSolarAPI.Entities;
 
 namespace SistemaSolarAPI.Controllers
 {
-    [Route("api/solarsystem")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class PlanetasController : ControllerBase
+    public class SistemaSolaresController : ControllerBase
     {
         private readonly SistemaSolarAPIContext _context;
 
-        public PlanetasController(SistemaSolarAPIContext context)
+        public SistemaSolaresController(SistemaSolarAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Planetas
+        // GET: api/SistemaSolares
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Planeta>>> GetPlaneta()
+        public async Task<ActionResult<IEnumerable<SistemaSolar>>> GetSistemaSolar()
         {
-            return await _context.Planeta.ToListAsync();
+            return await _context.SistemaSolar.ToListAsync();
         }
 
-        // GET: api/Planetas/5
+        // GET: api/SistemaSolares/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Planeta>> GetPlaneta(int id)
+        public async Task<ActionResult<SistemaSolar>> GetSistemaSolar(int id)
         {
-            var planeta = await _context.Planeta.FindAsync(id);
+            var sistemaSolar = await _context.SistemaSolar.FindAsync(id);
 
-            if (planeta == null)
+            if (sistemaSolar == null)
             {
                 return NotFound();
             }
 
-            return planeta;
+            return sistemaSolar;
         }
 
-        // PUT: api/Planetas/5
+        // PUT: api/SistemaSolares/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlaneta(int id, Planeta planeta)
+        public async Task<IActionResult> PutSistemaSolar(int id, SistemaSolar sistemaSolar)
         {
-            if (id != planeta.Id)
+            if (id != sistemaSolar.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(planeta).State = EntityState.Modified;
+            _context.Entry(sistemaSolar).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace SistemaSolarAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlanetaExists(id))
+                if (!SistemaSolarExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace SistemaSolarAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Planetas
+        // POST: api/SistemaSolares
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Planeta>> PostPlaneta(Planeta planeta)
+        public async Task<ActionResult<SistemaSolar>> PostSistemaSolar(SistemaSolar sistemaSolar)
         {
-            _context.Planeta.Add(planeta);
+            _context.SistemaSolar.Add(sistemaSolar);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlaneta", new { id = planeta.Id }, planeta);
+            return CreatedAtAction("GetSistemaSolar", new { id = sistemaSolar.Id }, sistemaSolar);
         }
 
-        // DELETE: api/Planetas/5
+        // DELETE: api/SistemaSolares/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlaneta(int id)
+        public async Task<IActionResult> DeleteSistemaSolar(int id)
         {
-            var planeta = await _context.Planeta.FindAsync(id);
-            if (planeta == null)
+            var sistemaSolar = await _context.SistemaSolar.FindAsync(id);
+            if (sistemaSolar == null)
             {
                 return NotFound();
             }
 
-            _context.Planeta.Remove(planeta);
+            _context.SistemaSolar.Remove(sistemaSolar);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool PlanetaExists(int id)
+        private bool SistemaSolarExists(int id)
         {
-            return _context.Planeta.Any(e => e.Id == id);
+            return _context.SistemaSolar.Any(e => e.Id == id);
         }
     }
 }

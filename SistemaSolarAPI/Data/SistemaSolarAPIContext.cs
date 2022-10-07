@@ -14,8 +14,14 @@ namespace SistemaSolarAPI.Data
         {
         }
 
-        public DbSet<SistemaSolarAPI.Entities.SistemaSolar> SistemaSolar { get; set; } = default!;
+        public DbSet<Planeta> Planeta { get; set; } = default!;
 
-        public DbSet<SistemaSolarAPI.Entities.Planeta> Planeta { get; set; }
+        public DbSet<SistemaSolar> SistemaSolar { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new PlanetaMap());
+            modelBuilder.ApplyConfiguration(new SistemaSolarMap());
+        }
     }
 }
